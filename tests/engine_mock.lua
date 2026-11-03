@@ -65,7 +65,7 @@ end
 function W.RunTicks(n) for _ = 1, n do W.Tick() end end
 function W.Character(id, hp, summon)
     local e = {Uuid = {EntityUuid = id}, IsCharacter = {}, Vars = {}, Slots = {},
-        HP = hp or 100, MaxHP = hp or 100, Summon = summon or 0, Boosts = {},
+        HP = hp or 100, MaxHP = hp or 100, Summon = summon or 0, Boosts = {}, Party = nil,
         ActionResources = {Resources = {}}, BaseSlots = {}}
     function e:Replicate(name) assert(name == "ActionResources") end
     W.Entities[id] = e
@@ -129,6 +129,14 @@ end
 function Osi.GetEquippedItem(character, slot) return W.Entities[character].Slots[slot] end
 function Osi.GetMaxHitpoints(id) return W.Entities[id].MaxHP end
 function Osi.IsSummon(id) return W.Entities[id] and W.Entities[id].Summon or 0 end
+function Osi.IsPartyMember(id, includeNotControlable)
+    assert(includeNotControlable == 1)
+    return W.Entities[id] and W.Entities[id].Party ~= nil and 1 or 0
+end
+function Osi.IsInPartyWith(id, other)
+    local a, b = W.Entities[id], W.Entities[other]
+    return a and b and a.Party ~= nil and a.Party == b.Party and 1 or 0
+end
 function Osi.GetHostCharacter() return W.Host end
 function Osi.TemplateAddTo(template, who, count, notification)
     assert(count == 1 and notification == 1)

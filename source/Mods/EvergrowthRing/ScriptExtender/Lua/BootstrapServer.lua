@@ -54,6 +54,28 @@ local function wornRings(character)
     return result
 end
 
+local function partyRings(killer)
+    local host = uuid(Osi.GetHostCharacter())
+    -- Explicit 0/1 comparisons: 0 is truthy in Lua. Membership is queried at
+    -- the death event, not inferred from stale wearer or recruitment records.
+    if not host or Osi.IsPartyMember(killer, 1) ~= 1
+        or Osi.IsInPartyWith(killer, host) ~= 1 then return {} end
+    local result, seen = {}, {}
+    for _, e in ipairs(Ext.Entity.GetAllEntitiesWithComponent("ServerCharacter")) do
+        local id = entityId(e)
+        if id and Osi.IsSummon(id) == 0 and Osi.IsPartyMember(id, 1) == 1
+            and Osi.IsInPartyWith(id, killer) == 1 then
+            for _, item in ipairs(wornRings(id)) do
+                if not seen[item] then
+                    seen[item] = true
+                    result[#result + 1] = {Item = item, Wearer = id}
+                end
+            end
+        end
+    end
+    return result
+end
+
 local managedResources = {[C.SpellResource] = true, [C.PactResource] = true,
     [C.ActionResource] = true, [C.BonusActionResource] = true, [C.MovementResource] = true}
 local function resourceEntries(e, callback)
@@ -253,7 +275,7 @@ local function kill(defender, owner, attacker)
         if C.CreditSummonKills then
             killer = uuid(owner)
         else
-            killer = direct
+            return -- A controlled summon must not become a party-wide source.
         end
     elseif source and source.IsCharacter then
         killer = direct
@@ -262,7 +284,7 @@ local function kill(defender, owner, attacker)
         killer = uuid(owner)
     end
     if not killer or killer == victim or not entity(killer) then return end
-    local rings = wornRings(killer)
+    local rings = partyRings(killer)
     if #rings == 0 then return end
     -- Do not read current HP: that is normally zero at this event.
     local maxHP = Osi.GetMaxHitpoints(victim)
@@ -272,24 +294,25 @@ local function kill(defender, owner, attacker)
     end
     -- Prepare all new states before committing any, to avoid partial XP awards.
     local changes = {}
-    for _, item in ipairs(rings) do
-        local s, itemEntity = ringState(item)
-        changes[#changes + 1] = {Entity = itemEntity, Item = item,
-            Previous = s.Level, State = Core.AddHP(s, maxHP / #rings)}
+    for _, target in ipairs(rings) do
+        local s, itemEntity = ringState(target.Item)
+        changes[#changes + 1] = {Entity = itemEntity, Item = target.Item, Wearer = target.Wearer,
+            Previous = s.Level, State = Core.AddHP(s, maxHP)}
     end
     -- Persistent per-victim death guard prevents repeat death callbacks/save reloads.
     dead.Vars[C.DeathVar] = true
-    local upgraded = false
+    local upgraded, affected = {}, {}
     for _, change in ipairs(changes) do
         change.Entity.Vars[C.StateVar] = change.State -- reassign to dirty UserVar
+        affected[change.Wearer] = true
         if change.State.Level > change.Previous then
-            upgraded = true
+            upgraded[change.Wearer] = true
             log("LEVEL UP " .. Core.Summary(change.Item, change.State))
         end
     end
-    if upgraded then levelUpVisual(killer) end
+    for wearer in pairs(upgraded) do levelUpVisual(wearer) end
     -- Never rebuild boosts inside the damage/death resolution stack.
-    queueReconcile(killer)
+    for wearer in pairs(affected) do queueReconcile(wearer) end
 end
 
 local function status(character, show)
@@ -389,7 +412,9 @@ Ext.RegisterConsoleCommand("er_addhp", function(_, hp, character)
         local upgraded = false
         for _, item in ipairs(rings) do
             local s, e = ringState(item)
-            local updated = Core.AddHP(s, credit / #rings)
+            -- Debug credit stays scoped to the selected character, full amount
+            -- per ring just like a real party award (no division).
+            local updated = Core.AddHP(s, credit)
             e.Vars[C.StateVar] = updated
             upgraded = upgraded or updated.Level > s.Level
         end
@@ -417,4 +442,4 @@ Ext.RegisterConsoleCommand("er_cleanup", function()
     end
     log("Bonuses removed from loaded characters. Unequip rings, wait a moment, save, then exit and disable the mod.")
 end)
-log("v0.3.0 loaded; runtime acceptance in Windows BG3 is still required.")
+log("v0.4.0 loaded; runtime acceptance in Windows BG3 is still required.")

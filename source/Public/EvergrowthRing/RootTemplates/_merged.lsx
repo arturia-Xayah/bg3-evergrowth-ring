@@ -14,7 +14,7 @@
           <attribute id="ParentTemplateId" type="FixedString" value="ecf4a8a4-7859-4a82-8c08-0c9526f29500" />
           <attribute id="DisplayName" type="TranslatedString" handle="h2370a925gd1e2g537fgb2c6gf89356acf6fa" version="1" />
           <attribute id="Description" type="TranslatedString" handle="h0aa1c47fg6ff9g5d27gbd17g8c5fe48d46e6" version="1" />
-          <attribute id="TechnicalDescription" type="TranslatedString" handle="h30f90032g2204g5733ga2bdg1a333f132b2b" version="3" />
+          <attribute id="TechnicalDescription" type="TranslatedString" handle="h30f90032g2204g5733ga2bdg1a333f132b2b" version="4" />
         </node>
       </children>
     </node>

@@ -2,6 +2,16 @@
 
 核对日期：2026-11-03。这里只记录实际查阅的来源和实施决策，不把文档/源码阅读当成运行验证。
 
+## 0.4.0 小队共享接口核对
+
+- 使用下文同一已核对提交的 `BG3ModdingTools/generated/Osi.lua`：`Osi.IsPartyMember(character, includeNotControlable) -> integer`、`Osi.IsInPartyWith(character, target) -> integer`，分别两个输入；返回值严格与1比较。
+- 官方 [IsInPartyWith](https://docs.baldursgate3.game/index.php?title=IsInPartyWith) 说明查询两角色是否同队，Osiris定义为两个输入加一个输出；SE Lua把输出作为返回值。
+- 官方 [IsPartyMember](https://docs.baldursgate3.game/index.php?title=IsPartyMember) 页面摘要定义缺少一个输入，但示例是 `IsPartyMember(character, 1, 1)`，与生成声明的 `includeNotControlable` 输入及输出bool一致。实际采用生成声明的2个Lua输入，没有盲从不完整摘要。
+- 使用 `IsPartyMember(id, 1)`，允许引擎仍认定属于小队但暂不可控的成员；再用 `IsInPartyWith` 校验与主机/击杀者同队。先确认击杀者属于主机小队，再从已核对的 `GetAllEntitiesWithComponent("ServerCharacter")` 路径枚举当前已加载同队非召唤成员，读取死亡时Ring/Ring2装备。不依据缓存的佩戴者表或历史招募名单发放。
+- 不加距离或同场战斗过滤。未加载角色不创建补发记录；营地/跟随/分区分类依原生查询，不宣称所有待命角色都被判为同队。默认召唤物代杀仍不触发奖励。
+- 每枚唯一物品UUID获完整maxHP额度，先准备全部新状态再写入；一份持久死者防重记录覆盖全队。升级特效按佩戴者去重，所有受影响佩戴者延后重算Boost并推送面板。调试命令 `!er_addhp`仅向指定角色的每枚戒指发放完整额度。
+- 接口文档与模拟调用已核对；未运行游戏，尤其不能据此声称营地/联机/临时控制角色分类已经实测。
+
 ## BG3 Script Extender
 
 使用仓库主分支快照：

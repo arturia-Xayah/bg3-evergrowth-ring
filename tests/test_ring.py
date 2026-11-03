@@ -27,7 +27,7 @@ def test_threshold_and_continuous_levels(core, hp, n, remaining):
     assert (s.Level, s.ProgressHP, s.Kills) == (n, remaining, 1)
 
 
-def test_half_hp_split_has_no_accumulation_drift(core):
+def test_fractional_hp_has_no_accumulation_drift(core):
     _, c = core
     s = c.NewState()
     for _ in range(2000):
@@ -149,6 +149,7 @@ def engine():
     config = lua.eval('Ext.Require("Config.lua")')
     c = lua.eval('Ext.Require("Core.lua")')
     p1, p2 = w.Character(P1, 100, 0), w.Character(P2, 100, 0)
+    p1.Party = p2.Party = "player-party"
     w.Item(R1, config.TemplateUUID)
     w.Item(R2, config.TemplateUUID)
     w.Host = P1
@@ -224,7 +225,7 @@ def test_resurrection_allows_next_real_death(engine):
     assert (state(w, config).Level, state(w, config).ProgressHP) == (1, 1000)
 
 
-def test_two_rings_share_hp_but_add_levels(engine):
+def test_two_rings_each_get_full_hp_and_add_levels(engine):
     _, w, config, _, p1, _ = engine
     equip(w, R1, P1, p1)
     equip(w, R2, P1, p1, "Ring2")
@@ -232,8 +233,116 @@ def test_two_rings_share_hp_but_add_levels(engine):
     w.Fire("KilledBy", V, P1, P1, 1)
     w.RunTicks(4)
     for ring in [R1, R2]:
-        assert (state(w, config, ring).Level, state(w, config, ring).ProgressHP) == (1, 0.5)
+        assert (state(w, config, ring).Level, state(w, config, ring).ProgressHP) == (1, 1001)
     assert p1.Vars[config.AppliedVar].Level == 2
+
+
+def test_unringed_teammate_kill_awards_wearer_and_updates_panel(engine):
+    _, w, config, _, p1, _ = engine
+    equip(w, R1, P1, p1)
+    w.Character(V, 4600, 0)
+    w.Fire("KilledBy", V, P2, P2, 1)
+    w.RunTicks(4)
+    assert (state(w, config).Level, state(w, config).ProgressHP) == (3, 100)
+    assert p1.Vars[config.AppliedVar].Level == 3
+    assert len(w.Effects) == 1 and w.Effects[1].Character == P1
+    packet = w.Broadcasts[len(w.Broadcasts)]
+    assert packet.Rings[1].Level == 3 and packet.Rings[1].Progress == 1
+
+
+def test_party_three_rings_full_credit_dedup_and_effect_per_wearer(engine):
+    _, w, config, _, p1, p2 = engine
+    third = "20000000-0000-0000-0000-000000000003"
+    w.Item(third, config.TemplateUUID)
+    equip(w, R1, P1, p1)
+    equip(w, R2, P1, p1, "Ring2")
+    equip(w, third, P2, p2)
+    w.Character(V, 4600, 0)
+    w.Fire("KilledBy", V, P1, P1, 1)
+    w.Fire("KilledBy", V, P2, P2, 2)  # same death, even with a different attribution
+    w.RunTicks(4)
+    for ring in [R1, R2, third]:
+        s = state(w, config, ring)
+        assert (s.Level, s.ProgressHP, s.Kills) == (3, 100, 1)
+    assert p1.Vars[config.AppliedVar].Level == 6
+    assert p2.Vars[config.AppliedVar].Level == 3
+    assert sorted(fx.Character for fx in w.Effects.values()) == [P1, P2]
+    packet = w.Broadcasts[len(w.Broadcasts)]
+    assert len(packet.Rings) == 3 and all(r.Progress == 1 for r in packet.Rings.values())
+
+
+@pytest.mark.parametrize("party", [None, "other-party"])
+def test_nonparty_killer_cannot_award_even_when_wearing_ring(engine, party):
+    _, w, config, _, p1, p2 = engine
+    equip(w, R1, P1, p1)
+    equip(w, R2, P2, p2)
+    p2.Party = party
+    w.Character(V, 1000, 0)
+    w.Fire("KilledBy", V, P2, P2, 1)
+    assert state(w, config).ProgressHP == state(w, config, R2).ProgressHP == 0
+    assert w.Entities[V].Vars[config.DeathVar] is None
+
+
+@pytest.mark.parametrize("party", [None, "other-party"])
+def test_recipient_membership_is_checked_at_each_death(engine, party):
+    _, w, config, _, p1, p2 = engine
+    equip(w, R1, P1, p1)
+    equip(w, R2, P2, p2)
+    p2.Party = party  # stale wearer registration must not grant progress
+    w.Character(V, 1000, 0)
+    w.Fire("KilledBy", V, P1, P1, 1)
+    w.RunTicks(4)
+    assert state(w, config).Level == 1
+    assert state(w, config, R2).ProgressHP == 0
+    p2.Party = "player-party"
+    w.Fire("KilledBy", V, P1, P1, 1)  # joining later cannot replay a paid death
+    assert state(w, config, R2).ProgressHP == 0
+
+
+def test_registered_but_unequipped_ring_receives_no_party_credit(engine):
+    _, w, config, _, p1, p2 = engine
+    equip(w, R1, P1, p1)
+    equip(w, R2, P2, p2)
+    p2.Slots.Ring = None
+    w.Fire("Unequipped", R2, P2)  # even before the deferred reconciliation tick
+    w.Character(V, 1000, 0)
+    w.Fire("KilledBy", V, P2, P2, 1)
+    assert state(w, config).Level == 1
+    assert state(w, config, R2).ProgressHP == 0
+
+
+def test_party_marked_summon_cannot_trigger_or_receive_shared_progress(engine):
+    _, w, config, _, p1, p2 = engine
+    equip(w, R1, P1, p1)
+    equip(w, R2, P2, p2)
+    p2.Summon = 1
+    w.Character(V, 1000, 0)
+    w.Fire("KilledBy", V, P1, P2, 1)
+    assert state(w, config).ProgressHP == 0
+    w.Fire("KilledBy", V, P1, P1, 2)
+    assert state(w, config).Level == 1
+    assert state(w, config, R2).ProgressHP == 0
+
+
+def test_corrupt_party_ring_does_not_partially_pay_other_rings(engine):
+    lua, w, config, _, p1, p2 = engine
+    equip(w, R1, P1, p1)
+    equip(w, R2, P2, p2)
+    w.Entities[R2].Vars[config.StateVar] = lua.table_from({"Schema": 999, "Level": 123})
+    w.Character(V, 1000, 0)
+    w.Fire("KilledBy", V, P1, P1, 1)
+    assert state(w, config).ProgressHP == 0
+    assert state(w, config, R2).Schema == 999
+    assert w.Entities[V].Vars[config.DeathVar] is None
+
+
+def test_duplicate_slots_do_not_multiply_full_party_credit(engine):
+    _, w, config, _, p1, _ = engine
+    equip(w, R1, P1, p1)
+    p1.Slots.Ring2 = R1  # defensive mock of duplicate inventory references
+    w.Character(V, 1000, 0)
+    w.Fire("KilledBy", V, P2, P2, 1)
+    assert (state(w, config).Level, state(w, config).Kills) == (1, 1)
 
 
 def test_transfer_and_unequip_preserve_instance_progress(engine):
@@ -387,7 +496,7 @@ def test_two_ring_simultaneous_upgrade_one_effect_and_live_totals(engine):
     _, w, _, _, p1, _ = engine
     equip(w, R1, P1, p1)
     equip(w, R2, P1, p1, "Ring2")
-    w.Console.er_addhp("er_addhp", "230000", P1)  # each ring exactly n=20
+    w.Console.er_addhp("er_addhp", "115000", P1)  # full credit to each ring: exactly n=20
     w.RunTicks(4)
     assert len(w.Effects) == 1
     packet = w.Channels.RingPanel_v1.RequestHandler()
