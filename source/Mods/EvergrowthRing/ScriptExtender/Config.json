@@ -1,0 +1,5 @@
+{
+  "RequiredVersion": 34,
+  "ModTable": "EvergrowthRing",
+  "FeatureFlags": ["Lua"]
+}

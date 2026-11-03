@@ -1,0 +1,102 @@
+Version: 0.3.0
+Checked: 2026-11-03
+Service: https://bg3.norbyte.dev/stats-validator
+Response: Stats validated with no errors!
+
+Submitted input (probe statuses are NOT shipped):
+new entry "ER_Ring_Evergrowth"
+type "Armor"
+using "_Ring"
+data "RootTemplate" "2cbb59be-e573-4dfa-8d40-52db636de013"
+data "Rarity" "Legendary"
+data "ValueOverride" "1"
+data "Weight" "0.05"
+data "Unique" "0"
+data "ItemGroup" ""
+data "Boosts" "UnlockSpell(Shout_ER_Inspect)"
+data "PassivesOnEquip" ""
+data "StatusOnEquip" "ER_EQUIPPED"
+
+
+new entry "Shout_ER_Inspect"
+type "SpellData"
+data "SpellType" "Shout"
+using "Shout_SecondWind"
+data "DisplayName" "hab16c613g1a8ag5022gbbc6g5a53dcc2f2e8;1"
+data "Description" "h05ffa6c9g8767g5732g9842g61331ceec84e;2"
+data "DescriptionParams" ""
+data "SpellProperties" ""
+data "SpellSuccess" ""
+data "TooltipDamageList" ""
+data "UseCosts" ""
+data "Cooldown" ""
+data "Level" "0"
+data "PrepareEffect" ""
+data "CastEffect" ""
+data "CastSound" ""
+data "TargetSound" ""
+
+
+new entry "ER_EQUIPPED"
+type "StatusData"
+data "StatusType" "BOOST"
+data "DisplayName" "hcfb18cb9gb580g595dgb253g744905137690;1"
+data "Description" "hc86ba329g2d17g5e4cga15eg772b925e67f3;1"
+data "Icon" "Item_LOOT_GEN_Ring_A_Simple_Gold"
+data "StackId" "ER_EQUIPPED"
+data "Boosts" ""
+data "StatusPropertyFlags" "DisableOverhead;DisableCombatlog"
+
+
+new entry "ER_VALIDATION_N0"
+type "StatusData"
+data "StatusType" "BOOST"
+data "Boosts" ""
+
+
+new entry "ER_VALIDATION_N4"
+type "StatusData"
+data "StatusType" "BOOST"
+data "Boosts" "Ability(Strength,4,2147483647,true);Ability(Dexterity,4,2147483647,true);Ability(Constitution,4,2147483647,true);Ability(Intelligence,4,2147483647,true);Ability(Wisdom,4,2147483647,true);Ability(Charisma,4,2147483647,true);SpellSaveDC(4);AC(4);RollBonus(Attack,4);RollBonus(SkillCheck,4);Initiative(1);ActionResource(Movement,4,0);RollBonus(SavingThrow,4,Strength);RollBonus(SavingThrow,4,Dexterity);RollBonus(SavingThrow,4,Constitution);RollBonus(SavingThrow,4,Intelligence);RollBonus(SavingThrow,4,Wisdom);RollBonus(SavingThrow,4,Charisma);DamageBonus(4);IF(IsAttack()):DamageBonus(4,Slashing,false);IF(IsAttack()):DamageBonus(4,Piercing,false);IF(IsAttack()):DamageBonus(4,Bludgeoning,false);IF(IsAttack()):DamageBonus(4,Acid,false);IF(IsAttack()):DamageBonus(4,Thunder,false);IF(IsAttack()):DamageBonus(4,Necrotic,false);IF(IsAttack()):DamageBonus(4,Fire,false);IF(IsAttack()):DamageBonus(4,Lightning,false);IF(IsAttack()):DamageBonus(4,Cold,false);IF(IsAttack()):DamageBonus(4,Psychic,false);IF(IsAttack()):DamageBonus(4,Poison,false);IF(IsAttack()):DamageBonus(4,Radiant,false);IF(IsAttack()):DamageBonus(4,Force,false);ActionResource(SpellSlot,4,1);ActionResource(SpellSlot,4,2);ActionResource(SpellSlot,4,3);ActionResource(SpellSlot,4,4);ActionResource(SpellSlot,4,5);ActionResource(SpellSlot,4,6);ActionResource(WarlockSpellSlot,4,2)"
+
+
+new entry "ER_VALIDATION_N7"
+type "StatusData"
+data "StatusType" "BOOST"
+data "Boosts" "Ability(Strength,7,2147483647,true);Ability(Dexterity,7,2147483647,true);Ability(Constitution,7,2147483647,true);Ability(Intelligence,7,2147483647,true);Ability(Wisdom,7,2147483647,true);Ability(Charisma,7,2147483647,true);SpellSaveDC(7);AC(7);RollBonus(Attack,7);RollBonus(SkillCheck,7);Initiative(1);ActionResource(Movement,7,0);RollBonus(SavingThrow,7,Strength);RollBonus(SavingThrow,7,Dexterity);RollBonus(SavingThrow,7,Constitution);RollBonus(SavingThrow,7,Intelligence);RollBonus(SavingThrow,7,Wisdom);RollBonus(SavingThrow,7,Charisma);DamageBonus(7);IF(IsAttack()):DamageBonus(7,Slashing,false);IF(IsAttack()):DamageBonus(7,Piercing,false);IF(IsAttack()):DamageBonus(7,Bludgeoning,false);IF(IsAttack()):DamageBonus(7,Acid,false);IF(IsAttack()):DamageBonus(7,Thunder,false);IF(IsAttack()):DamageBonus(7,Necrotic,false);IF(IsAttack()):DamageBonus(7,Fire,false);IF(IsAttack()):DamageBonus(7,Lightning,false);IF(IsAttack()):DamageBonus(7,Cold,false);IF(IsAttack()):DamageBonus(7,Psychic,false);IF(IsAttack()):DamageBonus(7,Poison,false);IF(IsAttack()):DamageBonus(7,Radiant,false);IF(IsAttack()):DamageBonus(7,Force,false);ActionResource(SpellSlot,7,1);ActionResource(SpellSlot,7,2);ActionResource(SpellSlot,7,3);ActionResource(SpellSlot,7,4);ActionResource(SpellSlot,7,5);ActionResource(SpellSlot,7,6);ActionResource(WarlockSpellSlot,7,2)"
+
+
+new entry "ER_VALIDATION_N8"
+type "StatusData"
+data "StatusType" "BOOST"
+data "Boosts" "Ability(Strength,8,2147483647,true);Ability(Dexterity,8,2147483647,true);Ability(Constitution,8,2147483647,true);Ability(Intelligence,8,2147483647,true);Ability(Wisdom,8,2147483647,true);Ability(Charisma,8,2147483647,true);SpellSaveDC(8);AC(8);RollBonus(Attack,8);RollBonus(SkillCheck,8);Initiative(2);ActionResource(Movement,8,0);ActionResource(BonusActionPoint,1,0);RollBonus(SavingThrow,8,Strength);RollBonus(SavingThrow,8,Dexterity);RollBonus(SavingThrow,8,Constitution);RollBonus(SavingThrow,8,Intelligence);RollBonus(SavingThrow,8,Wisdom);RollBonus(SavingThrow,8,Charisma);DamageBonus(8);IF(IsAttack()):DamageBonus(8,Slashing,false);IF(IsAttack()):DamageBonus(8,Piercing,false);IF(IsAttack()):DamageBonus(8,Bludgeoning,false);IF(IsAttack()):DamageBonus(8,Acid,false);IF(IsAttack()):DamageBonus(8,Thunder,false);IF(IsAttack()):DamageBonus(8,Necrotic,false);IF(IsAttack()):DamageBonus(8,Fire,false);IF(IsAttack()):DamageBonus(8,Lightning,false);IF(IsAttack()):DamageBonus(8,Cold,false);IF(IsAttack()):DamageBonus(8,Psychic,false);IF(IsAttack()):DamageBonus(8,Poison,false);IF(IsAttack()):DamageBonus(8,Radiant,false);IF(IsAttack()):DamageBonus(8,Force,false);ActionResource(SpellSlot,8,1);ActionResource(SpellSlot,8,2);ActionResource(SpellSlot,8,3);ActionResource(SpellSlot,8,4);ActionResource(SpellSlot,8,5);ActionResource(SpellSlot,8,6);ActionResource(WarlockSpellSlot,8,2)"
+
+
+new entry "ER_VALIDATION_N9"
+type "StatusData"
+data "StatusType" "BOOST"
+data "Boosts" "Ability(Strength,9,2147483647,true);Ability(Dexterity,9,2147483647,true);Ability(Constitution,9,2147483647,true);Ability(Intelligence,9,2147483647,true);Ability(Wisdom,9,2147483647,true);Ability(Charisma,9,2147483647,true);SpellSaveDC(9);AC(9);RollBonus(Attack,9);RollBonus(SkillCheck,9);Initiative(2);ActionResource(Movement,9,0);ActionResource(BonusActionPoint,1,0);RollBonus(SavingThrow,9,Strength);RollBonus(SavingThrow,9,Dexterity);RollBonus(SavingThrow,9,Constitution);RollBonus(SavingThrow,9,Intelligence);RollBonus(SavingThrow,9,Wisdom);RollBonus(SavingThrow,9,Charisma);DamageBonus(9);IF(IsAttack()):DamageBonus(9,Slashing,false);IF(IsAttack()):DamageBonus(9,Piercing,false);IF(IsAttack()):DamageBonus(9,Bludgeoning,false);IF(IsAttack()):DamageBonus(9,Acid,false);IF(IsAttack()):DamageBonus(9,Thunder,false);IF(IsAttack()):DamageBonus(9,Necrotic,false);IF(IsAttack()):DamageBonus(9,Fire,false);IF(IsAttack()):DamageBonus(9,Lightning,false);IF(IsAttack()):DamageBonus(9,Cold,false);IF(IsAttack()):DamageBonus(9,Psychic,false);IF(IsAttack()):DamageBonus(9,Poison,false);IF(IsAttack()):DamageBonus(9,Radiant,false);IF(IsAttack()):DamageBonus(9,Force,false);ActionResource(SpellSlot,9,1);ActionResource(SpellSlot,9,2);ActionResource(SpellSlot,9,3);ActionResource(SpellSlot,9,4);ActionResource(SpellSlot,9,5);ActionResource(SpellSlot,9,6);ActionResource(WarlockSpellSlot,9,2)"
+
+
+new entry "ER_VALIDATION_N10"
+type "StatusData"
+data "StatusType" "BOOST"
+data "Boosts" "Ability(Strength,10,2147483647,true);Ability(Dexterity,10,2147483647,true);Ability(Constitution,10,2147483647,true);Ability(Intelligence,10,2147483647,true);Ability(Wisdom,10,2147483647,true);Ability(Charisma,10,2147483647,true);SpellSaveDC(10);AC(10);RollBonus(Attack,10);RollBonus(SkillCheck,10);Initiative(2);ActionResource(Movement,10,0);ReduceCriticalAttackThreshold(1);ActionResource(ActionPoint,1,0);ActionResource(BonusActionPoint,1,0);RollBonus(SavingThrow,10,Strength);RollBonus(SavingThrow,10,Dexterity);RollBonus(SavingThrow,10,Constitution);RollBonus(SavingThrow,10,Intelligence);RollBonus(SavingThrow,10,Wisdom);RollBonus(SavingThrow,10,Charisma);DamageBonus(10);IF(IsAttack()):DamageBonus(10,Slashing,false);IF(IsAttack()):DamageBonus(10,Piercing,false);IF(IsAttack()):DamageBonus(10,Bludgeoning,false);IF(IsAttack()):DamageBonus(10,Acid,false);IF(IsAttack()):DamageBonus(10,Thunder,false);IF(IsAttack()):DamageBonus(10,Necrotic,false);IF(IsAttack()):DamageBonus(10,Fire,false);IF(IsAttack()):DamageBonus(10,Lightning,false);IF(IsAttack()):DamageBonus(10,Cold,false);IF(IsAttack()):DamageBonus(10,Psychic,false);IF(IsAttack()):DamageBonus(10,Poison,false);IF(IsAttack()):DamageBonus(10,Radiant,false);IF(IsAttack()):DamageBonus(10,Force,false);ActionResource(SpellSlot,10,1);ActionResource(SpellSlot,10,2);ActionResource(SpellSlot,10,3);ActionResource(SpellSlot,10,4);ActionResource(SpellSlot,10,5);ActionResource(SpellSlot,10,6);ActionResource(WarlockSpellSlot,10,2)"
+
+
+new entry "ER_VALIDATION_N19"
+type "StatusData"
+data "StatusType" "BOOST"
+data "Boosts" "Ability(Strength,19,2147483647,true);Ability(Dexterity,19,2147483647,true);Ability(Constitution,19,2147483647,true);Ability(Intelligence,19,2147483647,true);Ability(Wisdom,19,2147483647,true);Ability(Charisma,19,2147483647,true);SpellSaveDC(19);AC(19);RollBonus(Attack,19);RollBonus(SkillCheck,19);Initiative(4);ActionResource(Movement,19,0);ReduceCriticalAttackThreshold(1);ActionResource(ActionPoint,1,0);ActionResource(BonusActionPoint,2,0);RollBonus(SavingThrow,19,Strength);RollBonus(SavingThrow,19,Dexterity);RollBonus(SavingThrow,19,Constitution);RollBonus(SavingThrow,19,Intelligence);RollBonus(SavingThrow,19,Wisdom);RollBonus(SavingThrow,19,Charisma);DamageBonus(19);IF(IsAttack()):DamageBonus(19,Slashing,false);IF(IsAttack()):DamageBonus(19,Piercing,false);IF(IsAttack()):DamageBonus(19,Bludgeoning,false);IF(IsAttack()):DamageBonus(19,Acid,false);IF(IsAttack()):DamageBonus(19,Thunder,false);IF(IsAttack()):DamageBonus(19,Necrotic,false);IF(IsAttack()):DamageBonus(19,Fire,false);IF(IsAttack()):DamageBonus(19,Lightning,false);IF(IsAttack()):DamageBonus(19,Cold,false);IF(IsAttack()):DamageBonus(19,Psychic,false);IF(IsAttack()):DamageBonus(19,Poison,false);IF(IsAttack()):DamageBonus(19,Radiant,false);IF(IsAttack()):DamageBonus(19,Force,false);ActionResource(SpellSlot,19,1);ActionResource(SpellSlot,19,2);ActionResource(SpellSlot,19,3);ActionResource(SpellSlot,19,4);ActionResource(SpellSlot,19,5);ActionResource(SpellSlot,19,6);ActionResource(WarlockSpellSlot,19,2)"
+
+
+new entry "ER_VALIDATION_N20"
+type "StatusData"
+data "StatusType" "BOOST"
+data "Boosts" "Ability(Strength,20,2147483647,true);Ability(Dexterity,20,2147483647,true);Ability(Constitution,20,2147483647,true);Ability(Intelligence,20,2147483647,true);Ability(Wisdom,20,2147483647,true);Ability(Charisma,20,2147483647,true);SpellSaveDC(20);AC(20);RollBonus(Attack,20);RollBonus(SkillCheck,20);Initiative(5);ActionResource(Movement,20,0);ReduceCriticalAttackThreshold(2);ActionResource(ActionPoint,2,0);ActionResource(BonusActionPoint,2,0);RollBonus(SavingThrow,20,Strength);RollBonus(SavingThrow,20,Dexterity);RollBonus(SavingThrow,20,Constitution);RollBonus(SavingThrow,20,Intelligence);RollBonus(SavingThrow,20,Wisdom);RollBonus(SavingThrow,20,Charisma);DamageBonus(20);IF(IsAttack()):DamageBonus(20,Slashing,false);IF(IsAttack()):DamageBonus(20,Piercing,false);IF(IsAttack()):DamageBonus(20,Bludgeoning,false);IF(IsAttack()):DamageBonus(20,Acid,false);IF(IsAttack()):DamageBonus(20,Thunder,false);IF(IsAttack()):DamageBonus(20,Necrotic,false);IF(IsAttack()):DamageBonus(20,Fire,false);IF(IsAttack()):DamageBonus(20,Lightning,false);IF(IsAttack()):DamageBonus(20,Cold,false);IF(IsAttack()):DamageBonus(20,Psychic,false);IF(IsAttack()):DamageBonus(20,Poison,false);IF(IsAttack()):DamageBonus(20,Radiant,false);IF(IsAttack()):DamageBonus(20,Force,false);ActionResource(SpellSlot,20,1);ActionResource(SpellSlot,20,2);ActionResource(SpellSlot,20,3);ActionResource(SpellSlot,20,4);ActionResource(SpellSlot,20,5);ActionResource(SpellSlot,20,6);ActionResource(WarlockSpellSlot,20,2)"
+
+
+new entry "ER_VALIDATION_N200"
+type "StatusData"
+data "StatusType" "BOOST"
+data "Boosts" "Ability(Strength,200,2147483647,true);Ability(Dexterity,200,2147483647,true);Ability(Constitution,200,2147483647,true);Ability(Intelligence,200,2147483647,true);Ability(Wisdom,200,2147483647,true);Ability(Charisma,200,2147483647,true);SpellSaveDC(200);AC(200);RollBonus(Attack,200);RollBonus(SkillCheck,200);Initiative(50);ActionResource(Movement,200,0);ReduceCriticalAttackThreshold(20);ActionResource(ActionPoint,20,0);ActionResource(BonusActionPoint,25,0);RollBonus(SavingThrow,200,Strength);RollBonus(SavingThrow,200,Dexterity);RollBonus(SavingThrow,200,Constitution);RollBonus(SavingThrow,200,Intelligence);RollBonus(SavingThrow,200,Wisdom);RollBonus(SavingThrow,200,Charisma);DamageBonus(200);IF(IsAttack()):DamageBonus(200,Slashing,false);IF(IsAttack()):DamageBonus(200,Piercing,false);IF(IsAttack()):DamageBonus(200,Bludgeoning,false);IF(IsAttack()):DamageBonus(200,Acid,false);IF(IsAttack()):DamageBonus(200,Thunder,false);IF(IsAttack()):DamageBonus(200,Necrotic,false);IF(IsAttack()):DamageBonus(200,Fire,false);IF(IsAttack()):DamageBonus(200,Lightning,false);IF(IsAttack()):DamageBonus(200,Cold,false);IF(IsAttack()):DamageBonus(200,Psychic,false);IF(IsAttack()):DamageBonus(200,Poison,false);IF(IsAttack()):DamageBonus(200,Radiant,false);IF(IsAttack()):DamageBonus(200,Force,false);ActionResource(SpellSlot,200,1);ActionResource(SpellSlot,200,2);ActionResource(SpellSlot,200,3);ActionResource(SpellSlot,200,4);ActionResource(SpellSlot,200,5);ActionResource(SpellSlot,200,6);ActionResource(WarlockSpellSlot,200,2)"

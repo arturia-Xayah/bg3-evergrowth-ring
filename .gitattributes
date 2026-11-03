@@ -1,0 +1,12 @@
+* text=auto
+*.lua text eol=lf
+*.py text eol=lf
+*.md text eol=lf
+*.lsx text eol=lf
+*.xml text eol=lf
+*.json text eol=lf
+*.cmd text eol=crlf
+*.pak binary
+*.lsf binary
+*.loca binary
+*.png binary

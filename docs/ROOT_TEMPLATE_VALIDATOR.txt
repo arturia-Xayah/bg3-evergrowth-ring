@@ -1,0 +1,28 @@
+Version: 0.3.0
+Checked: 2026-11-03
+Service: https://bg3.norbyte.dev/lsx-validator
+Response: LSX validated with no errors!
+
+Submitted input:
+<?xml version="1.0" encoding="utf-8"?>
+<save>
+  <version major="4" minor="0" revision="9" build="330" />
+  <region id="Templates">
+    <node id="Templates">
+      <children>
+        <node id="GameObjects">
+          <attribute id="MapKey" type="FixedString" value="2cbb59be-e573-4dfa-8d40-52db636de013" />
+          <attribute id="Name" type="LSString" value="ER_Ring_Evergrowth" />
+          <attribute id="LevelName" type="FixedString" value="" />
+          <attribute id="Type" type="FixedString" value="item" />
+          <attribute id="Stats" type="FixedString" value="ER_Ring_Evergrowth" />
+          <attribute id="Icon" type="FixedString" value="Item_LOOT_GEN_Ring_A_Simple_Gold" />
+          <attribute id="ParentTemplateId" type="FixedString" value="ecf4a8a4-7859-4a82-8c08-0c9526f29500" />
+          <attribute id="DisplayName" type="TranslatedString" handle="h2370a925gd1e2g537fgb2c6gf89356acf6fa" version="1" />
+          <attribute id="Description" type="TranslatedString" handle="h0aa1c47fg6ff9g5d27gbd17g8c5fe48d46e6" version="1" />
+          <attribute id="TechnicalDescription" type="TranslatedString" handle="h30f90032g2204g5733ga2bdg1a333f132b2b" version="3" />
+        </node>
+      </children>
+    </node>
+  </region>
+</save>

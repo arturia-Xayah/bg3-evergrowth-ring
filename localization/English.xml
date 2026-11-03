@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<contentList>
+  <content contentuid="h2370a925gd1e2g537fgb2c6gf89356acf6fa" version="1">Evergrowth Ring</content>
+  <content contentuid="h0aa1c47fg6ff9g5d27gbd17g8c5fe48d46e6" version="1">Every life leaves a measure of power behind.</content>
+  <content contentuid="h30f90032g2204g5733ga2bdg1a333f132b2b" version="3">Starts at level n=0. While equipped: +n to all six abilities, spell save DC, saving throws, AC, attack rolls, damage, and ordinary spell slot maxima (levels 1-6). Existing Pact slots also gain +n. Attacks add n damage of each of the 13 damage types. Killing a non-summon grants its maximum HP / 100 progress. Next level costs 10 + 5*n; overflow is retained. Two rings share progress and add their bonuses. Use Inspect Evergrowth Ring to see instance progress. Newly added slots are empty until rest. Native damage packet rules apply. All skill checks +n; initiative +floor(n/4); movement +n metres; critical attack threshold reduced by floor(n/10); actions per turn +floor(n/10), bonus actions +floor(n/8). Round each ring separately, then add. Added turn resources replenish next turn; re-equipping does not refill them. Level-ups play the native upgrade VFX; Inspect opens the live growth panel.</content>
+  <content contentuid="hcfb18cb9gb580g595dgb253g744905137690" version="1">Evergrowth Ring Equipped</content>
+  <content contentuid="hc86ba329g2d17g5e4cga15eg772b925e67f3" version="1">Ring progression belongs to the item instance and persists in your save. Inspect the ring to see its level. Script Extender is required for all scaling bonuses.</content>
+  <content contentuid="hab16c613g1a8ag5022gbbc6g5a53dcc2f2e8" version="1">Inspect Evergrowth Ring</content>
+  <content contentuid="h05ffa6c9g8767g5732g9842g61331ceec84e" version="2">Open the live growth panel: level, progress, required and remaining progress, and every ring bonus. Updates while open. Costs no resources.</content>
+</contentList>

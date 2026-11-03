@@ -1,0 +1,9 @@
+Version: 0.3.0
+Executed: 2026-11-03 on macOS, Python 3.12, embedded Lua 5.4 (lupa.lua54).
+All 6 Lua files passed load() syntax checks.
+Command: python -m pytest -q tests --disable-warnings
+
+...........................................................              [100%]
+59 passed in 0.26s
+
+No Windows, BG3 game, BG3SE DLL, visual effect playback, actual ImGui rendering, native turn refresh or multiplayer session was executed.
