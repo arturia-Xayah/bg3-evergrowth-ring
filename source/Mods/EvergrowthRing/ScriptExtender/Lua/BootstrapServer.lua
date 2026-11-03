@@ -442,4 +442,4 @@ Ext.RegisterConsoleCommand("er_cleanup", function()
     end
     log("Bonuses removed from loaded characters. Unequip rings, wait a moment, save, then exit and disable the mod.")
 end)
-log("v0.4.0 loaded; runtime acceptance in Windows BG3 is still required.")
+log("v0.4.1 loaded; runtime acceptance in Windows BG3 is still required.")

@@ -2,7 +2,7 @@
 
 <div align="center">
 
-<img src="artwork/evergrowth-gold-vines-basecolor-draft.png" alt="Aged gold and emerald vine material draft; not integrated into the game" width="256">
+<img src="artwork/evergrowth-ring-icon.png" alt="Gold vine ring with an emerald gem and transparent background" width="256">
 
 # Evergrowth Ring
 
@@ -10,11 +10,11 @@
 
 [简体中文](README.md) · **English** · [Download PAK](EvergrowthRing.pak) · [Detailed Chinese manual](README.zh-CN.md)
 
-Windows · Baldur’s Gate 3 · BG3 Script Extender ≥ 34 · Version 0.4.0
+Windows · Baldur’s Gate 3 · BG3 Script Extender ≥ 34 · Version 0.4.1
 
 </div>
 
-**Experimental build: not tested on Windows or inside BG3.** The repository includes an importable `.pak`, 69 passing rule/mock-adapter/archive tests and historical online Stats/RootTemplate format-validation records. This version leaves Stats unchanged and only increments the template's localized description version; it has been rebuilt and round-trip verified, without another online validation. These checks do not establish actual combat, save/load, resource recalculation, UI rendering or multiplayer compatibility. API audit date: 2026-11-03.
+**Experimental build: not tested on Windows or inside BG3.** The repository includes an importable `.pak`, 75 passing icon/rule/mock-adapter/archive tests and historical online Stats/RootTemplate validation records. New custom icon resources have local format, reference and archive round-trip checks, without another online validation. These checks do not establish actual combat, save/load, resource recalculation, icon/UI rendering or multiplayer compatibility. API audit date: 2026-11-03.
 
 ## Contents
 
@@ -65,9 +65,11 @@ Actual ring upgrades request the original `VFX_UI_LevelUp_01` effect once per up
 
 ## Artwork
 
+**0.4.1 adds a recognizable standalone ring icon**, with a gold band, emerald gem, vine engravings and a transparent central hole. It replaces the README artwork and is included in the `.pak` through a custom atlas and root-template icon reference: 64px inventory atlas, 144px controller icon and 380px tooltip icon. References, BC3 transparency and archive content have been checked; **actual in-game rendering remains untested**. See [icon sources and export instructions](artwork/ICON.md).
+
 The [PNG base-color draft](artwork/evergrowth-gold-vines-basecolor-draft.png) uses aged gold, engraved roots/vines and emerald life-energy seams. It is original generated artwork inspired by fantasy jewellery, not an extracted game texture.
 
-**It is not integrated into the `.pak`.** The installed ring currently inherits the vanilla `LOOT_GEN_Ring_A_Simple_Gold` model/material/icon. The draft is not UV-matched or a complete calibrated PBR set; no normal/roughness maps, DDS conversion or seamless-tiling verification are claimed. See [artwork status and generation prompt](artwork/README.md).
+**The material draft is not integrated into the `.pak`.** The 3D ring still inherits the vanilla `LOOT_GEN_Ring_A_Simple_Gold` model/material. That texture swatch is a separate asset from the newly packaged 2D icon; it is not UV-matched or a complete PBR set. See [material-draft status and prompt](artwork/README.md).
 
 ## Compatibility and saves
 

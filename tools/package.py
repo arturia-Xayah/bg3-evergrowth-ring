@@ -23,8 +23,9 @@ def lz4_literals(data):
 
 def pack(source, destination):
     files = sorted(p for p in Path(source).rglob("*") if p.is_file()
-                   and (p.suffix not in {".lsx", ".xml"} or p.name == "meta.lsx"))
-    # Authoring XML is excluded. The engine consumes compiled LSF and LOCA.
+                   and (p.suffix not in {".lsx", ".xml"} or p.name == "meta.lsx"
+                        or p.relative_to(source).as_posix() == "Public/EvergrowthRing/GUI/ER_Icons_Evergrowth.lsx"))
+    # Templates/banks/metadata use compiled LSF; atlas UV maps must stay LSX.
     files = [p for p in files if not any(part.startswith(".") for part in p.relative_to(source).parts)]
     header = struct.Struct("<4sIQIBB16sH")
     entry = struct.Struct("<256sIHBBII")

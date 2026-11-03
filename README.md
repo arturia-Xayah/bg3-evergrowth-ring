@@ -2,7 +2,7 @@
 
 <div align="center">
 
-<img src="artwork/evergrowth-gold-vines-basecolor-draft.png" alt="无尽生长之戒：旧金与翠绿藤蔓材质绘制稿，尚未接入游戏" width="256">
+<img src="artwork/evergrowth-ring-icon.png" alt="无尽生长之戒：金色藤蔓戒圈与翠绿宝石，透明背景" width="256">
 
 # 无尽生长之戒 · Evergrowth Ring
 
@@ -11,14 +11,14 @@
 **简体中文** · [English](README.en.md) · [安装包](EvergrowthRing.pak) · [完整使用手册](README.zh-CN.md)
 
 [![Download PAK](https://img.shields.io/badge/Download-PAK-4c8b52)](EvergrowthRing.pak)
-[![Version](https://img.shields.io/badge/version-0.4.0-blue)](docs/CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-0.4.1-blue)](docs/CHANGELOG.md)
 [![Status](https://img.shields.io/badge/in--game-unverified-orange)](docs/VALIDATION.md)
 
 Windows · Baldur’s Gate 3 · BG3 Script Extender ≥ 34 · Lua
 
 </div>
 
-**当前为未经过 Windows 和游戏实测的试用版。** 已生成可导入的 `.pak`，通过 69 项规则、模拟适配器和包结构测试。此前的在线 Stats / RootTemplate 格式校验证据保留在项目中；本版未改 Stats，只递增物品说明版本，已重新构建回读。真实战斗、存读档、实时面板渲染和升级特效仍需游戏验收。核对日期：2026-11-03；[接口与来源记录](docs/API_AUDIT.md)。
+**当前为未经过 Windows 和游戏实测的试用版。** 已生成可导入的 `.pak`，通过 75 项图标、规则、模拟适配器和包结构测试。此前的在线 Stats / RootTemplate 格式校验证据保留；本版自定义图标通过本地格式、引用与包回读检查，未重新在线验证。真实战斗、存读档、图标、实时面板与升级特效仍需游戏验收。核对日期：2026-11-03；[接口与来源记录](docs/API_AUDIT.md)。
 
 ## 目录
 
@@ -74,9 +74,11 @@ Windows · Baldur’s Gate 3 · BG3 Script Extender ≥ 34 · Lua
 
 ## 外观与贴图
 
+**0.4.1 新增独立戒指图标**：清晰的金色戒圈、翠绿宝石、藤蔓雕纹与透明背景，已替换本页封面，并通过自定义图集和物品图标引用加入 `.pak`。包含64像素背包图集、144像素手柄图及380像素悬浮说明图。资源引用、透明通道与包内容检查通过，**游戏内实际显示仍未验证**。见[图标源图与导出说明](artwork/ICON.md)。
+
 本仓库新增了**旧金 / 藤蔓根系 / 翠绿生命结晶**主题的 [PNG 材质底色绘制稿](artwork/evergrowth-gold-vines-basecolor-draft.png)，用于这枚成长戒指的后续美术制作。参考游戏的奇幻饰品气质，未复制官方纹理。
 
-**绘制稿尚未接入 `.pak`。** 游戏内当前仍继承原版简式金戒指 `LOOT_GEN_Ring_A_Simple_Gold` 的模型、材质和图标。此 PNG 尚未匹配模型 UV，也不是完整 PBR 材质；没有伪称已完成 DDS 转换、法线/粗糙度图或无缝拼接验收。详见[美术说明与生成提示词](artwork/README.md)。
+**这张材质绘制稿尚未接入 `.pak`。** 游戏内3D物品仍继承原版简式金戒指 `LOOT_GEN_Ring_A_Simple_Gold` 的模型与材质。此纹样 PNG 尚未匹配模型 UV，也不是完整 PBR 材质；它与本版已打包的2D戒指图标是不同资产。详见[材质绘制稿说明](artwork/README.md)。
 
 ## 兼容性与存档
 

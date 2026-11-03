@@ -1,0 +1,9 @@
+{
+  "name": "evergrowth-ring-optional-icon-export",
+  "private": true,
+  "description": "Optional artwork export dependencies; not needed to build or install the mod",
+  "dependencies": {
+    "sharp": "0.35.5",
+    "dxt-js": "0.0.3"
+  }
+}

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<save>
+  <version major="4" minor="0" revision="9" build="330" />
+  <region id="config">
+    <node id="config"><children>
+      <node id="entries"><children>
+        <node id="Object">
+          <attribute id="MapKey" type="FixedString" value="Assets/ControllerUIIcons/items_png/ER_Item_EvergrowthRing.png" />
+          <children><node id="entries">
+            <attribute id="h" type="int16" value="144" />
+            <attribute id="w" type="int16" value="144" />
+            <attribute id="mipcount" type="int8" value="1" />
+          </node></children>
+        </node>
+        <node id="Object">
+          <attribute id="MapKey" type="FixedString" value="Assets/Tooltips/ItemIcons/ER_Item_EvergrowthRing.png" />
+          <children><node id="entries">
+            <attribute id="h" type="int16" value="380" />
+            <attribute id="w" type="int16" value="380" />
+            <attribute id="mipcount" type="int8" value="1" />
+          </node></children>
+        </node>
+      </children></node>
+    </children></node>
+  </region>
+</save>

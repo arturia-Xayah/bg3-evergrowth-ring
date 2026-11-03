@@ -2,6 +2,14 @@
 
 核对日期：2026-11-03。这里只记录实际查阅的来源和实施决策，不把文档/源码阅读当成运行验证。
 
+## 0.4.1 自定义图标资源
+
+- 官方[Adding Skill and Item Icons](https://docs.baldursgate3.game/Adding_Skill_and_Item_Icons)确认64px图集、144px手柄、380px悬浮图、Mods下GUI的两类目标目录，以及物品在RootTemplate中填写Icon名称。此前继承的原版图标在本版改为ER_Item_EvergrowthRing，3D模型和材质仍继承原版。
+- 对照图标工具作者[app.js，8681d7ea0a6b1058fd6a06043a46c5ddb0baf017](https://github.com/Atamg1994/Bg3_Icon_bulder/blob/8681d7ea0a6b1058fd6a06043a46c5ddb0baf017/app.js)的TextureAtlasInfo/IconUVList、Content/UI下TextureBank和config→entries→Object→entries元数据结构。元数据逻辑键使用.png，物理纹理使用.DDS；实际w/h与mipcount按本包DDS填写。该工具是作者实现参考，不冒称为本机Toolkit导出。
+- 纹理使用BC3/DXT5，透明通道保留，单mip；DDS头按[微软DDS格式说明](https://learn.microsoft.com/en-us/windows/win32/direct3ddds/dx-graphics-dds-pguide)实现。Node可选工具使用sharp 0.35.5做尺寸适配和sRGB编码，dxt-js 0.0.3做BC3压缩；不复制游戏图像。导出后解压回读，再核对透明中心并目视检查64px预览。
+- 图集UV必须以LSX保留，而TextureBank和GUI元数据编译成LSF v7。这是打包器新增的特例；不再错误排除运行时图集文件。
+- 仅完成资源/包检查，没有运行Toolkit或游戏；不能保证图形后端、旧物品缓存或手柄界面的实际显示。验收应覆盖新生成物品和旧存档已有实例。
+
 ## 0.4.0 小队共享接口核对
 
 - 使用下文同一已核对提交的 `BG3ModdingTools/generated/Osi.lua`：`Osi.IsPartyMember(character, includeNotControlable) -> integer`、`Osi.IsInPartyWith(character, target) -> integer`，分别两个输入；返回值严格与1比较。

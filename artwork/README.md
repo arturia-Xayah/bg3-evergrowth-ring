@@ -1,5 +1,7 @@
 # 无尽生长之戒：材质底色绘制稿
 
+此处是材质纹样稿。0.4.1新增的独立戒指图标与游戏资源说明见[ICON.md](ICON.md)，项目封面已改用戒指图标。
+
 ![旧金藤蔓与翠绿结晶](evergrowth-gold-vines-basecolor-draft.png)
 
 文件：`evergrowth-gold-vines-basecolor-draft.png`，1254 × 1254 PNG。使用 **内置 imagegen / generate 模式**生成，日期 2026-11-03。主题为旧金与浅色合金、藤蔓根系雕纹、翠绿生命结晶，以表现戒指汲取生命并持续成长的设定。画面是金属表面的绘制稿，不是戒指模型、游戏截图或背包图标。

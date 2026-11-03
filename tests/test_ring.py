@@ -706,4 +706,85 @@ def test_package_with_independent_struct_and_native_lz4_reader():
         assert content == (ROOT / "source" / name).read_bytes()
     assert checksum == bytes((x + 1) % 256 for x in md5.digest())
     assert "Public/EvergrowthRing/RootTemplates/_merged.lsf" in names
-    assert len(names) == len(set(names)) == 14
+    assert len(names) == len(set(names)) == 22
+
+
+def dds_header(path):
+    data = path.read_bytes()
+    assert data[:4] == b"DDS " and struct.unpack_from("<I", data, 4)[0] == 124
+    height, width, linear = struct.unpack_from("<III", data, 12)
+    assert data[84:88] == b"DXT5" and struct.unpack_from("<I", data, 76)[0] == 32
+    assert struct.unpack_from("<I", data, 28)[0] == 1
+    assert len(data) == 128 + linear == 128 + ((width + 3) // 4) * ((height + 3) // 4) * 16
+    return data, width, height
+
+
+def bc3_alpha(data, width, x, y):
+    offset = 128 + ((y // 4) * ((width + 3) // 4) + x // 4) * 16
+    a, b = data[offset:offset + 2]
+    if a > b:
+        palette = [a, b] + [((7 - i) * a + i * b) / 7 for i in range(1, 7)]
+    else:
+        palette = [a, b] + [((5 - i) * a + i * b) / 5 for i in range(1, 5)] + [0, 255]
+    codes = int.from_bytes(data[offset + 2:offset + 8], "little")
+    index = (y % 4) * 4 + x % 4
+    return palette[(codes >> (index * 3)) & 7]
+
+
+@pytest.mark.parametrize("size,relative", [
+    (64, "Public/EvergrowthRing/Assets/Textures/Icons/ER_Icons_Evergrowth.dds"),
+    (144, "Mods/EvergrowthRing/GUI/Assets/ControllerUIIcons/items_png/ER_Item_EvergrowthRing.DDS"),
+    (380, "Mods/EvergrowthRing/GUI/Assets/Tooltips/ItemIcons/ER_Item_EvergrowthRing.DDS")])
+def test_custom_icon_bc3_sizes_visible_ring_and_transparent_hole(size, relative):
+    data, width, height = dds_header(ROOT / "source" / relative)
+    assert width == height == size
+    assert bc3_alpha(data, width, 0, 0) <= 8
+    assert bc3_alpha(data, width, width // 2, height // 2) <= 8
+    opaque = sum(bc3_alpha(data, width, x, y) > 200 for y in range(height) for x in range(width))
+    assert width * height * 0.15 < opaque < width * height * 0.7
+
+
+def test_custom_icon_template_atlas_bank_reference_chain():
+    from bg3forge.parsers.lsf import parse_lsf
+    from bg3forge.parsers.lsx import parse_lsx
+    from bg3forge.assets.atlases import parse_atlas
+    public = ROOT / "source/Public/EvergrowthRing"
+    template = next(parse_lsf((public / "RootTemplates/_merged.lsf").read_bytes()).find_all("GameObjects"))
+    document = parse_lsx((public / "GUI/ER_Icons_Evergrowth.lsx").read_bytes())
+    atlas = parse_atlas(document)
+    assert template.get("Icon") == "ER_Item_EvergrowthRing" and template.get("Icon") in atlas
+    assert (atlas.width, atlas.height, atlas.icon_width, atlas.icon_height) == (64, 64, 64, 64)
+    assert atlas.icons[template.get("Icon")].pixel_box(64, 64) == (0, 0, 64, 64)
+    bank = parse_lsf((public / "Content/UI/EvergrowthRing_UI/_merged.lsf").read_bytes())
+    resource = next(bank.find_all("Resource"))
+    atlas_uuid = next(document.find_all("TextureAtlasPath")).get("UUID")
+    assert resource.get("ID") == atlas_uuid
+    assert ROOT.joinpath("source", resource.get("SourceFile")).read_bytes() == public.joinpath(atlas.texture_path).read_bytes()
+    # UV LSX is a runtime asset and must not be filtered out with authoring LSX.
+    from bg3forge.pak.reader import PakReader
+    with PakReader(ROOT / "EvergrowthRing.pak") as pak:
+        name = "Public/EvergrowthRing/GUI/ER_Icons_Evergrowth.lsx"
+        assert pak.read(name) == (ROOT / "source" / name).read_bytes()
+
+
+def test_custom_icon_gui_metadata_paths_sizes_and_nested_structure():
+    from bg3forge.parsers.lsf import parse_lsf
+    import xml.etree.ElementTree as ET
+    gui = ROOT / "source/Mods/EvergrowthRing/GUI"
+    xml = ET.parse(gui / "metadata.lsx")
+    objects = xml.findall("./region/node/children/node[@id='entries']/children/node[@id='Object']")
+    assert len(objects) == 2
+    compiled = list(parse_lsf((gui / "metadata.lsf").read_bytes()).find_all("Object"))
+    assert len(compiled) == 2
+    for node in compiled:
+        key = node.get("MapKey")
+        entry = next(node.find_all("entries"))
+        _, width, height = dds_header(gui / key.replace(".png", ".DDS"))
+        assert int(entry.get("w")) == width and int(entry.get("h")) == height
+        assert int(entry.get("mipcount")) == 1
+
+
+def test_custom_icon_lowres_fallbacks_retain_valid_assets():
+    gui = ROOT / "source/Mods/EvergrowthRing/GUI"
+    for name in ["ControllerUIIcons/items_png/ER_Item_EvergrowthRing.DDS", "Tooltips/ItemIcons/ER_Item_EvergrowthRing.DDS"]:
+        assert (gui / "Assets" / name).read_bytes() == (gui / "AssetsLowRes" / name).read_bytes()

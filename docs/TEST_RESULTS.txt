@@ -1,13 +1,17 @@
-Version: 0.4.0
+Version: 0.4.1
 Executed: 2026-11-03 on macOS, Python 3.12, embedded Lua 5.4 (lupa.lua54).
 All 6 Lua files passed load() syntax checks.
 Command: python -m pytest -q tests --disable-warnings
 
-...........................................................              [100%]
-69 passed in 0.07s
+........................................................................ [ 96%]
+...                                                                      [100%]
+75 passed in 0.22s
 
 Includes party-wide full credit, unringed teammate kills, cross-character boosts
 and panel updates, one effect per upgraded wearer, death and slot deduplication,
 party membership changes, unequipped rings, summons and corrupt-state handling.
+Also includes custom icon BC3 size/alpha checks, the template-atlas-bank reference
+chain, runtime atlas LSX inclusion, GUI metadata hierarchy/dimensions and fallback
+asset copies. Decoded 64px BC3 preview was visually inspected outside the game.
 
 No Windows, BG3 game, BG3SE DLL, visual effect playback, actual ImGui rendering, native turn refresh or multiplayer session was executed.

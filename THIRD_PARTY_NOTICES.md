@@ -2,7 +2,7 @@
 
 ## Project code and generated artwork
 
-First-party code and resources are distributed under [LICENSE.txt](LICENSE.txt). The PNG in `artwork/` was generated with the built-in imagegen tool; its provenance, prompt and unfinished integration status are documented in [artwork/README.md](artwork/README.md). No claim of exclusivity or official game authorship is made.
+First-party code and resources are distributed under [LICENSE.txt](LICENSE.txt). The material draft and ring icon in `artwork/` were generated with the built-in imagegen tool. The material draft remains unintegrated; the separate 2D ring icon is exported to DDS and packaged. See [material provenance](artwork/README.md) and [icon provenance and prompt](artwork/ICON.md). No claim of exclusivity or official game authorship is made.
 
 ## bg3forge
 
@@ -21,3 +21,5 @@ Baldur’s Gate, Dungeons & Dragons and related game materials belong to their r
 ## Test dependencies
 
 The optional development dependencies in `requirements-dev.txt` (lupa, pytest and lz4) are installed separately; their packages are not vendored. Their respective licenses apply.
+
+The optional icon exporter uses separately installed sharp and dxt-js (libsquish-based) packages. Their code and binaries are not vendored in this repository; only exported PNG/DDS artwork and first-party build logic are included. The icon resource layout was checked against the official guide and the author's [Bg3_Icon_bulder](https://github.com/Atamg1994/Bg3_Icon_bulder) implementation, not copied as a bundled tool.

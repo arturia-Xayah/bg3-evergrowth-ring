@@ -23,7 +23,7 @@ def build():
     meta = parse_meta(parse_lsx((source / "Mods/EvergrowthRing/meta.lsx").read_bytes()))
     assert meta.uuid == "7d174b8e-d212-49a3-bd8b-94f17bd08633"
     assert meta.folder == "EvergrowthRing" and meta.mod_type == "Add-on"
-    assert meta.version == (0, 4, 0, 0)
+    assert meta.version == (0, 4, 1, 0)
     extender = json.loads((source / "Mods/EvergrowthRing/ScriptExtender/Config.json").read_text())
     assert extender["RequiredVersion"] == 34 and extender["FeatureFlags"] == ["Lua"]
     stats = [entry for path in (source / "Public/EvergrowthRing/Stats/Generated/Data").glob("*.txt")
@@ -37,7 +37,15 @@ def build():
     assert decoded[0].get("MapKey") == "2cbb59be-e573-4dfa-8d40-52db636de013"
     assert decoded[0].get("Stats") == "ER_Ring_Evergrowth"
     assert decoded[0].get("LevelName") == ""
+    assert decoded[0].get("Icon") == "ER_Item_EvergrowthRing"
     (templates / "_merged.lsf").write_bytes(binary)
+    for name in ["Public/EvergrowthRing/Content/UI/EvergrowthRing_UI/_merged.lsx",
+                 "Mods/EvergrowthRing/GUI/metadata.lsx"]:
+        authoring = source / name
+        document = parse_lsx(authoring.read_bytes())
+        binary = write_lsf(document, version=7)
+        assert len(parse_lsf(binary).regions) == len(document.regions)
+        authoring.with_suffix(".lsf").write_bytes(binary)
     for language in ["English", "Chinese"]:
         xml = ET.parse(ROOT / "localization" / (language + ".xml"))
         entries = [LocaEntry(e.attrib["contentuid"], int(e.attrib["version"]), e.text or "")
@@ -58,7 +66,7 @@ def build():
         assert actual == expected, "PAK round-trip differs from the source"
         assert any(name.endswith("/_merged.lsf") for name in actual)
         assert any(name.endswith("/meta.lsx") for name in actual)
-    manifest = {"file": pak.name, "version": "0.4.0", "sha256": hashlib.sha256(pak.read_bytes()).hexdigest(),
+    manifest = {"file": pak.name, "version": "0.4.1", "sha256": hashlib.sha256(pak.read_bytes()).hexdigest(),
                 "format": "LSPK v18", "entries": expected,
                 "game_tested": False, "windows_tested": False}
     (ROOT / "BUILD_MANIFEST.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")

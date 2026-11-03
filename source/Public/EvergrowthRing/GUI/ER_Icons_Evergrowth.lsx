@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<save>
+  <version major="4" minor="0" revision="9" build="330" />
+  <region id="TextureAtlasInfo">
+    <node id="root"><children>
+      <node id="TextureAtlasIconSize">
+        <attribute id="Height" type="int32" value="64" />
+        <attribute id="Width" type="int32" value="64" />
+      </node>
+      <node id="TextureAtlasPath">
+        <attribute id="Path" type="LSString" value="Assets/Textures/Icons/ER_Icons_Evergrowth.dds" />
+        <attribute id="UUID" type="FixedString" value="5a202739-7df4-47a8-a2be-90888f45cf84" />
+      </node>
+      <node id="TextureAtlasTextureSize">
+        <attribute id="Height" type="int32" value="64" />
+        <attribute id="Width" type="int32" value="64" />
+      </node>
+    </children></node>
+  </region>
+  <region id="IconUVList">
+    <node id="root"><children>
+      <node id="IconUV">
+        <attribute id="MapKey" type="FixedString" value="ER_Item_EvergrowthRing" />
+        <attribute id="U1" type="float" value="0" />
+        <attribute id="U2" type="float" value="1" />
+        <attribute id="V1" type="float" value="0" />
+        <attribute id="V2" type="float" value="1" />
+      </node>
+    </children></node>
+  </region>
+</save>

@@ -10,3 +10,5 @@
 *.lsf binary
 *.loca binary
 *.png binary
+*.dds binary
+*.DDS binary
